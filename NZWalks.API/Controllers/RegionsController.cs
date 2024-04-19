@@ -111,7 +111,9 @@ namespace NZWalks.API.Controllers
 
             // Save the changes in DB
             dbContext.SaveChanges();
-            var regionDto = new Region
+
+            // Convert model to DTO
+            var regionDto = new RegionDTO
             {
                 Id = existingRegion.Id,
                 Code = existingRegion.Code,
@@ -119,7 +121,31 @@ namespace NZWalks.API.Controllers
                 RegionImageUrl = existingRegion.RegionImageUrl
             };
 
-            // Convert model to DTO
+           return Ok(regionDto);
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public IActionResult DeleteRegion([FromRoute] Guid id)
+        {
+            var existingRegion = dbContext.Regions.FirstOrDefault(x => x.Id == id);
+            if (existingRegion == null)
+            {
+                return NotFound();
+            }
+
+            // Delete Region 
+            dbContext.Regions.Remove(existingRegion);
+            dbContext.SaveChanges();
+
+            // Convert model to DTO and return deleted region
+            var regionDto = new RegionDTO
+            {
+                Id = existingRegion.Id,
+                Code = existingRegion.Code,
+                Name = existingRegion.Name,
+                RegionImageUrl = existingRegion.RegionImageUrl
+            };
 
             return Ok(regionDto);
         }
