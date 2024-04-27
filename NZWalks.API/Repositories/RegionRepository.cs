@@ -12,12 +12,17 @@ namespace NZWalks.API.Repositories
             this.dbContext = dbContext;
         }
 
-        public NZWalksDbContext DbContext { get; }
-
         public async Task<List<Region>> GetAllAsync()
         {
             var regions = await dbContext.Regions.ToListAsync();
             return regions;
+        }
+
+        public async Task<Region?> GetRegionAsync(Guid id)
+        {
+            //var region = dbContext.Regions.Find(id);
+            var region = await dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+            return region;
         }
     }
 }
