@@ -20,7 +20,12 @@ namespace NZWalks.API.Services
 
         public async Task<Region> GetRegionAsync(Guid id)
         {
-            return await _regionRepository.GetRegionAsync(id);
+            return await _regionRepository.GetRegionByIdAsync(id);
+        }
+
+        public async Task<Region> AddReagion(Region region)
+        {
+            return await _regionRepository.AddRegionAsync(region);
         }
     }
 }

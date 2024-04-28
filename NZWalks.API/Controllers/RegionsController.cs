@@ -48,7 +48,7 @@ namespace NZWalks.API.Controllers
         {
             // Get Data from DB - model
 
-            var region = await regionRepository.GetRegionAsync(id);
+            var region = await regionRepository.GetRegionByIdAsync(id);
 
             if (region == null)
             {
@@ -80,8 +80,7 @@ namespace NZWalks.API.Controllers
             };
 
             // Use model to create region in DB
-            await dbContext.Regions.AddAsync(regionModel);
-            await dbContext.SaveChangesAsync();
+            await regionRepository.AddRegionAsync(regionModel);   
 
             // Map model to DTOs
             var regionDto = new RegionDTO

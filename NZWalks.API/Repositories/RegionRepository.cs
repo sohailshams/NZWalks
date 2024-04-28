@@ -18,11 +18,19 @@ namespace NZWalks.API.Repositories
             return regions;
         }
 
-        public async Task<Region?> GetRegionAsync(Guid id)
+        public async Task<Region?> GetRegionByIdAsync(Guid id)
         {
             //var region = dbContext.Regions.Find(id);
             var region = await dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
             return region;
         }
+
+        public async Task<Region> AddRegionAsync(Region region)
+        {
+            await dbContext.Regions.AddAsync(region);
+            await dbContext.SaveChangesAsync();
+            return region;
+        }
+
     }
 }
