@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
+using NZWalks.API.DTOs;
 using NZWalks.API.Models;
 
 namespace NZWalks.API.Repositories
@@ -32,5 +33,16 @@ namespace NZWalks.API.Repositories
             return region;
         }
 
+        //public async Task<Region?> UpdateRegionAsync(Guid id, Region region, UpdateRegionDto existingRegion)
+        //{
+
+        //    existingRegion.Code = region.Code;
+        //    existingRegion.Name = region.Name;
+        //    existingRegion.RegionImageUrl = region.RegionImageUrl;
+
+        //    await dbContext.SaveChangesAsync();
+
+        //    return existingRegion;
+        //}
     }
 }
