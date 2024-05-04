@@ -51,10 +51,33 @@ namespace NZWalks.API.Services
             return regionDto;
         }
 
-        //public async Task<Region> AddReagion(Region region)
-        //{
-        //    return await _regionRepository.AddRegionAsync(region);
-        //}
+
+        public async Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion)
+        {
+            //if (addRegion is null) return null;
+
+            // Convert DTO to model
+            var regionModel = new Region
+            {
+                Code = addRegion.Code,
+                Name = addRegion.Name,
+                RegionImageUrl = addRegion.RegionImageUrl
+            };
+
+            // Use model to create region in DB
+            regionModel = await _regionRepository.AddRegionAsync(regionModel);
+
+            //Map model to DTOs
+            var regionDto = new RegionDTO
+            {
+                Id = regionModel.Id,
+                Code = regionModel.Code,
+                Name = regionModel.Name,
+                RegionImageUrl = regionModel.RegionImageUrl
+            };
+
+            return regionDto;
+        }
 
         //public async Task<Region?> UpdateRegionAsync(Guid id, Region region)
         //{

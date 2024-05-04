@@ -45,31 +45,29 @@ namespace NZWalks.API.Controllers
             return Ok(region);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddReagion([FromBody] AddRegionDto addRegion)
-        //{
-        //    // Convert DTO to model
-        //    var regionModel = new Region
-        //    {
-        //        Code = addRegion.Code,
-        //        Name = addRegion.Name,
-        //        RegionImageUrl = addRegion.RegionImageUrl
-        //    };
+        [HttpPost]
+        public async Task<IActionResult> AddReagion([FromBody] AddRegionDTO addRegion)
+        {
 
-        //    // Use model to create region in DB
-        //    regionModel = await regionRepository.AddRegionAsync(regionModel);   
+            // Use model to create region in DB
+            var region = await _regionService.AddRegionAsync(addRegion);
 
-        //    // Map model to DTOs
-        //    var regionDto = new RegionDTO
-        //    {
-        //        Id = regionModel.Id,
-        //        Code = regionModel.Code,
-        //        Name = regionModel.Name,
-        //        RegionImageUrl = regionModel.RegionImageUrl
-        //    };
+            // Map model to DTOs
+            //var regionDto = new RegionDTO
+            //{
+            //    Id = regionModel.Id,
+            //    Code = regionModel.Code,
+            //    Name = regionModel.Name,
+            //    RegionImageUrl = regionModel.RegionImageUrl
+            //};
+            //if (region == null) 
+            //{
+            //    return StatusCode(500);
+            //}
 
-        //    return CreatedAtAction(nameof(GetById), new { id = regionDto.Id }, regionDto);
-        //}
+            //return CreatedAtAction(nameof(GetById), new { id = regionDto.Id }, regionDto);
+            return Ok(region);
+        }
 
         //[HttpPut]
         //[Route("{id:Guid}")]
