@@ -54,8 +54,6 @@ namespace NZWalks.API.Services
 
         public async Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion)
         {
-            //if (addRegion is null) return null;
-
             // Convert DTO to model
             var regionModel = new Region
             {

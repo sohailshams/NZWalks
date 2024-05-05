@@ -49,24 +49,9 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> AddReagion([FromBody] AddRegionDTO addRegion)
         {
 
-            // Use model to create region in DB
             var region = await _regionService.AddRegionAsync(addRegion);
 
-            // Map model to DTOs
-            //var regionDto = new RegionDTO
-            //{
-            //    Id = regionModel.Id,
-            //    Code = regionModel.Code,
-            //    Name = regionModel.Name,
-            //    RegionImageUrl = regionModel.RegionImageUrl
-            //};
-            //if (region == null) 
-            //{
-            //    return StatusCode(500);
-            //}
-
-            //return CreatedAtAction(nameof(GetById), new { id = regionDto.Id }, regionDto);
-            return Ok(region);
+            return CreatedAtAction(nameof(GetRegionById), new { id = region.Id }, region);
         }
 
         //[HttpPut]
