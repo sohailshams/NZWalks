@@ -77,14 +77,33 @@ namespace NZWalks.API.Services
             return regionDto;
         }
 
-        //public async Task<Region?> UpdateRegionAsync(Guid id, Region region)
-        //{
-        //    var existingRegion = _regionRepository.GetRegionByIdAsync(id);
-        //    if (existingRegion == null) return null;
+        public async Task<RegionDTO?> UpdateRegionAsync(Guid id, UpdateRegionDTO updateRegion)
+        {
+
+            // Convert DTO to model
+            var regionModelUpdatedValues = new Region
+            {
+                Code = updateRegion.Code,
+                Name = updateRegion.Name,
+                RegionImageUrl = updateRegion.RegionImageUrl
+            };
+
+            var updatedRegionModel = await _regionRepository.UpdateRegionAsync(id, regionModelUpdatedValues);
+            if (updatedRegionModel == null) return null;
+
+            // Convert updated model to DTO
+            var updatedRegionDto = new RegionDTO
+            {
+                Id = updatedRegionModel.Id,
+                Code = updatedRegionModel.Code,
+                Name = updatedRegionModel.Name,
+                RegionImageUrl = updatedRegionModel.RegionImageUrl
+            };
 
 
-        //    return await _regionRepository.UpdateRegionAsync(Guid id, Region region, UpdateRegionDto existingRegion);
-        //}
+            return updatedRegionDto;
+
+        }
 
     }
 }

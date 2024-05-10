@@ -54,30 +54,18 @@ namespace NZWalks.API.Controllers
             return CreatedAtAction(nameof(GetRegionById), new { id = region.Id }, region);
         }
 
-        //[HttpPut]
-        //[Route("{id:Guid}")]
-        //public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionDto updatedRegion)
-        //{
-        //    var existingRegion = regionRepository.UpdateRegionAsync(id, updatedRegion);
-        //    if (existingRegion == null) 
-        //    { 
-        //        return NotFound(); 
-        //    }  
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionDTO updatedRegion)
+        {
+            var region = await _regionService.UpdateRegionAsync(id, updatedRegion);
+            if (region == null)
+            {
+                return NotFound();
+            }
 
-        //    // Save the changes in DB
-        //    await dbContext.SaveChangesAsync();
-
-        //    // Convert model to DTO
-        //    var regionDto = new RegionDTO
-        //    {
-        //        Id = existingRegion.Id,
-        //        Code = existingRegion.Code,
-        //        Name = existingRegion.Name,
-        //        RegionImageUrl = existingRegion.RegionImageUrl
-        //    };
-
-        //   return Ok(regionDto);
-        //}
+            return Ok(region);
+        }
 
         //[HttpDelete]
         //[Route("{id:Guid}")]

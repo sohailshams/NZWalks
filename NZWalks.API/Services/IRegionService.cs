@@ -7,8 +7,8 @@ namespace NZWalks.API.Services
     {
         public Task<List<RegionDTO>> GetAllRegionsAsync();
         public Task<RegionDTO?> GetRegionByIdAsync(Guid id);
-        //public Task<AddRegionDTO> AddReagionAsync(AddRegionDTO addRegion);
         public Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion);
-        //public Task<Region?> UpdateRegionAsync(Guid id, Region region);
+
+        public Task<RegionDTO?> UpdateRegionAsync(Guid id, UpdateRegionDTO updatedRegion);
     }
 }
