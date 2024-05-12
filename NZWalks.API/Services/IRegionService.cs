@@ -10,5 +10,6 @@ namespace NZWalks.API.Services
         public Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion);
 
         public Task<RegionDTO?> UpdateRegionAsync(Guid id, UpdateRegionDTO updatedRegion);
+        public Task<RegionDTO?> DeleteRegionAsync(Guid id);
     }
 }

@@ -105,5 +105,23 @@ namespace NZWalks.API.Services
 
         }
 
+        public async Task<RegionDTO?> DeleteRegionAsync(Guid id)
+        {
+            var deltedRegion = await _regionRepository.DeleteRegionAsync(id);
+
+            if (deltedRegion == null) return null;  
+
+            // Convert deleted region model to DTO
+            var regionDto = new RegionDTO
+            {
+                Id = deltedRegion.Id,
+                Code = deltedRegion.Code,
+                Name = deltedRegion.Name,
+                RegionImageUrl = deltedRegion.RegionImageUrl
+            };
+
+            return regionDto;
+        }
+
     }
 }

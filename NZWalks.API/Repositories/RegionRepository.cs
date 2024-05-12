@@ -32,9 +32,7 @@ namespace NZWalks.API.Repositories
             await dbContext.SaveChangesAsync();
             return region;
         }
-
-       
-
+             
         public async Task<Region?> UpdateRegionAsync(Guid id, Region regionModelUpdatedValues)
         {
             var existingRegion = await dbContext.Regions.AsTracking().FirstOrDefaultAsync(x => x.Id == id);
@@ -44,6 +42,17 @@ namespace NZWalks.API.Repositories
             existingRegion.Name = regionModelUpdatedValues.Name;
             existingRegion.RegionImageUrl = regionModelUpdatedValues.RegionImageUrl;
 
+            await dbContext.SaveChangesAsync();
+
+            return existingRegion;
+        }
+
+        public async Task<Region?> DeleteRegionAsync(Guid id)
+        {
+            var existingRegion = await dbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingRegion == null) return null;
+
+            dbContext.Regions.Remove(existingRegion);
             await dbContext.SaveChangesAsync();
 
             return existingRegion;
