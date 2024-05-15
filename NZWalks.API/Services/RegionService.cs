@@ -1,4 +1,5 @@
-﻿using NZWalks.API.DTOs;
+﻿using AutoMapper;
+using NZWalks.API.DTOs;
 using NZWalks.API.Models;
 using NZWalks.API.Repositories;
 
@@ -7,30 +8,23 @@ namespace NZWalks.API.Services
     public class RegionService : IRegionService
     {
         private readonly IRegionRepository _regionRepository;
+        private readonly IMapper _mapper;
         public RegionService(
-            IRegionRepository regionRepository
+            IRegionRepository regionRepository,
+            IMapper mapper
             )
         {
             _regionRepository = regionRepository;
+            _mapper = mapper;
         }
 
         public async Task<List<RegionDTO>> GetAllRegionsAsync()
         {
-            // Get Data from DB - model
+            // Get Data from DB
             var regions = await _regionRepository.GetAllAsync();
 
             // Map model to DTOs
-            var regionDtos = new List<RegionDTO>();
-            foreach (var region in regions)
-            {
-                regionDtos.Add(new RegionDTO()
-                {
-                    Id = region.Id,
-                    Code = region.Code,
-                    Name = region.Name,
-                    RegionImageUrl = region.RegionImageUrl
-                });
-            }
+            var regionDtos = _mapper.Map<List<RegionDTO>>(regions);
 
             return regionDtos;
         }
@@ -39,14 +33,8 @@ namespace NZWalks.API.Services
         {
             var region = await _regionRepository.GetRegionByIdAsync(id);
 
-            // Map model to DTOs
-            var regionDto = new RegionDTO
-            {
-                Id = region.Id,
-                Code = region.Code,
-                Name = region.Name,
-                RegionImageUrl = region.RegionImageUrl
-            };
+            // Map model to DTO
+            var regionDto = _mapper.Map<RegionDTO>(region);
 
             return regionDto;
         }
@@ -54,25 +42,14 @@ namespace NZWalks.API.Services
 
         public async Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion)
         {
-            // Convert DTO to model
-            var regionModel = new Region
-            {
-                Code = addRegion.Code,
-                Name = addRegion.Name,
-                RegionImageUrl = addRegion.RegionImageUrl
-            };
+            // Convert AddRegionDTO to model
+            var regionModel = _mapper.Map<Region>(addRegion);
 
             // Use model to create region in DB
             regionModel = await _regionRepository.AddRegionAsync(regionModel);
 
-            //Map model to DTOs
-            var regionDto = new RegionDTO
-            {
-                Id = regionModel.Id,
-                Code = regionModel.Code,
-                Name = regionModel.Name,
-                RegionImageUrl = regionModel.RegionImageUrl
-            };
+            //Map model to DTO
+            var regionDto = _mapper.Map<RegionDTO>(regionModel);
 
             return regionDto;
         }
