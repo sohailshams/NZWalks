@@ -40,7 +40,7 @@ namespace NZWalks.API.Services
         }
 
 
-        public async Task<RegionDTO> AddRegionAsync(AddRegionDTO addRegion)
+        public async Task<RegionDTO> AddRegionAsync(AddRegionDTO  addRegion)
         {
             // Convert AddRegionDTO to model
             var regionModel = _mapper.Map<Region>(addRegion);
