@@ -20,6 +20,8 @@ options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped <IRegionRepository, RegionRepository> ();
 builder.Services.AddScoped <IRegionService, RegionService> ();
+builder.Services.AddScoped<IWalkRepository, WalkRepository>();
+builder.Services.AddScoped<IWalkService, WalkService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapping));
 
