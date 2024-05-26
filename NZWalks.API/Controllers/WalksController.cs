@@ -17,6 +17,16 @@ namespace NZWalks.API.Controllers
         {
             _walkService = walkService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetWalksAsync()
+        {
+            // Get Data from DB
+            var walks = await _walkService.GetAllWalksAsync();
+
+            return Ok(walks);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddWalk([FromBody] AddWalkDTO addWalk)
         {

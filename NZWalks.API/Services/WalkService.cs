@@ -18,6 +18,15 @@ namespace NZWalks.API.Services
             _walkRepository = walkRepository;
             _mapper = mapper;
         }
+        public async Task<List<WalkDTO>> GetAllWalksAsync()
+        {
+            var walks = await _walkRepository.GetAllWalkAsync();
+
+            // Map walk model to DTO
+            var walksDTOs = _mapper.Map<List<WalkDTO>>( walks );
+           
+            return walksDTOs;
+        }
         public async Task<WalkDTO> AddWalkAsync(AddWalkDTO addWalk)
         {
             // Convert AddWalkDTO to model
@@ -31,5 +40,6 @@ namespace NZWalks.API.Services
 
             return walkDto;
         }
+
     }
 }
