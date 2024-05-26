@@ -27,6 +27,15 @@ namespace NZWalks.API.Controllers
             return Ok(walks);
         }
 
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetWalk([FromRoute] Guid id)
+        {
+            var walk = await _walkService.GetWalkByIdAsync(id);
+                if (walk == null) return NoContent();
+                return Ok(walk);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddWalk([FromBody] AddWalkDTO addWalk)
         {

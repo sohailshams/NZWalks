@@ -6,5 +6,6 @@ namespace NZWalks.API.Services
     {
         public Task<List<WalkDTO>> GetAllWalksAsync();
         public Task<WalkDTO> AddWalkAsync(AddWalkDTO addWalk);
+        public Task<WalkDTO?> GetWalkByIdAsync(Guid id);
     }
 }

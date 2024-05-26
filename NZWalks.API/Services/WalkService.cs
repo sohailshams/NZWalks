@@ -27,6 +27,15 @@ namespace NZWalks.API.Services
            
             return walksDTOs;
         }
+        public async Task<WalkDTO?> GetWalkByIdAsync(Guid id)
+        {
+            var walk = await _walkRepository.GetWalkByIdAsync(id);
+
+            // Map model to DTO
+            var walkDTO = _mapper.Map<WalkDTO>(walk);
+
+            return walkDTO;
+        }
         public async Task<WalkDTO> AddWalkAsync(AddWalkDTO addWalk)
         {
             // Convert AddWalkDTO to model
