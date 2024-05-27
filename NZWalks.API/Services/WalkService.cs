@@ -50,5 +50,19 @@ namespace NZWalks.API.Services
             return walkDto;
         }
 
+        public async Task<WalkDTO?> UpdateWalkAsync(Guid id, UpdateWalkDTO updateWalk)
+        {
+
+            // Map DTO to model 
+            var upatedWalkValues = _mapper.Map<Walk>(updateWalk);
+
+            var updateWalkModel = await _walkRepository.updateWalkAsync(id, upatedWalkValues);
+            if (updateWalkModel == null) return null;
+
+            // Map model to DTO
+            var upatedDTO = _mapper.Map<WalkDTO>(updateWalkModel);
+
+            return upatedDTO;
+        }
     }
 }

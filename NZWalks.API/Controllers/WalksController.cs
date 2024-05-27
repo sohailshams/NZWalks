@@ -44,5 +44,18 @@ namespace NZWalks.API.Controllers
             return Ok(walk);
 
         }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> UpdateWalk([FromRoute] Guid id, UpdateWalkDTO updateWalk)
+        {
+            var walk = await _walkService.UpdateWalkAsync(id, updateWalk);
+            if (walk == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(walk);
+        }
     }
 }
