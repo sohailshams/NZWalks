@@ -64,5 +64,15 @@ namespace NZWalks.API.Services
 
             return upatedDTO;
         }
+
+        public async Task<WalkDTO?> DeleteWalkAsync(Guid id)
+        {
+            var deleteWalk = await _walkRepository.DeleteWalkAsync(id);
+            if (deleteWalk == null) return null;
+
+            // Map walk to DTO
+            var walkDTO = _mapper.Map<WalkDTO>(deleteWalk);
+            return walkDTO;
+        }
     }
 }

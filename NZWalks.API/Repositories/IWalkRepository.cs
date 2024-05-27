@@ -8,5 +8,6 @@ namespace NZWalks.API.Repositories
         Task<Walk?> GetWalkByIdAsync(Guid id);
         Task<Walk> AddWalkAsync(Walk walk);
         Task<Walk?> updateWalkAsync(Guid id,  Walk upatedWalkValues);
+        Task<Walk?> DeleteWalkAsync(Guid id);
     }
 }
