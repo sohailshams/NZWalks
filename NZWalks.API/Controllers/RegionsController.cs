@@ -48,6 +48,7 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddReagion([FromBody] AddRegionDTO addRegion)
         {
+            // Return BadRequest if addRegion properties are not valid
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var region = await _regionService.AddRegionAsync(addRegion);
@@ -59,6 +60,9 @@ namespace NZWalks.API.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionDTO updatedRegion)
         {
+            // Return BadRequest if updatedRegion properties are not valid
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var region = await _regionService.UpdateRegionAsync(id, updatedRegion);
             if (region == null)
             {
