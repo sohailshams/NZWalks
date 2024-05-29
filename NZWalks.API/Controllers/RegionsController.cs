@@ -48,6 +48,7 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddReagion([FromBody] AddRegionDTO addRegion)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var region = await _regionService.AddRegionAsync(addRegion);
 
