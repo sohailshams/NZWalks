@@ -39,6 +39,8 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddWalk([FromBody] AddWalkDTO addWalk)
         {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
             var walk = await _walkService.AddWalkAsync(addWalk);
               
             return Ok(walk);
@@ -49,6 +51,8 @@ namespace NZWalks.API.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateWalk([FromRoute] Guid id, UpdateWalkDTO updateWalk)
         {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
             var walk = await _walkService.UpdateWalkAsync(id, updateWalk);
             if (walk == null)
             {
