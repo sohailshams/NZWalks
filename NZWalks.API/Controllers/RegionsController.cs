@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NZWalks.API.Data;
+using NZWalks.API.CustomActionFilters;
 using NZWalks.API.DTOs;
-using NZWalks.API.Models;
-using NZWalks.API.Repositories;
 using NZWalks.API.Services;
 
 namespace NZWalks.API.Controllers
@@ -46,11 +43,10 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> AddReagion([FromBody] AddRegionDTO addRegion)
         {
             // Return BadRequest if addRegion properties are not valid
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var region = await _regionService.AddRegionAsync(addRegion);
 
             return CreatedAtAction(nameof(GetRegionById), new { id = region.Id }, region);
@@ -58,11 +54,10 @@ namespace NZWalks.API.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [ValidateModel]
         public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] UpdateRegionDTO updatedRegion)
         {
             // Return BadRequest if updatedRegion properties are not valid
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var region = await _regionService.UpdateRegionAsync(id, updatedRegion);
             if (region == null)
             {

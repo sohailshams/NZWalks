@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using NZWalks.API.CustomActionFilters;
 using NZWalks.API.DTOs;
 using NZWalks.API.Services;
 
@@ -37,10 +37,9 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> AddWalk([FromBody] AddWalkDTO addWalk)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
-
             var walk = await _walkService.AddWalkAsync(addWalk);
               
             return Ok(walk);
@@ -49,10 +48,9 @@ namespace NZWalks.API.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [ValidateModel]
         public async Task<IActionResult> UpdateWalk([FromRoute] Guid id, UpdateWalkDTO updateWalk)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
-
             var walk = await _walkService.UpdateWalkAsync(id, updateWalk);
             if (walk == null)
             {
