@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
 using NZWalks.API.DTOs;
+using NZWalks.API.Helpers;
 using NZWalks.API.Models;
 
 namespace NZWalks.API.Repositories
@@ -13,10 +14,14 @@ namespace NZWalks.API.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<Region>> GetAllAsync()
+        public async Task<List<Region>> GetAllAsync(QueryObjects query)
         {
-            var regions = await dbContext.Regions.ToListAsync();
-            return regions;
+            var regions = dbContext.Regions.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                regions = regions.Where(r => r.Name.Contains(query.Name));
+            }
+            return await regions.ToListAsync();
         }
 
         public async Task<Region?> GetRegionByIdAsync(Guid id)

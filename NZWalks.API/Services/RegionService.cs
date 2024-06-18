@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NZWalks.API.DTOs;
+using NZWalks.API.Helpers;
 using NZWalks.API.Models;
 using NZWalks.API.Repositories;
 
@@ -18,10 +19,10 @@ namespace NZWalks.API.Services
             _mapper = mapper;
         }
 
-        public async Task<List<RegionDTO>> GetAllRegionsAsync()
+        public async Task<List<RegionDTO>> GetAllRegionsAsync(QueryObjects query)
         {
             // Get Data from DB
-            var regions = await _regionRepository.GetAllAsync();
+            var regions = await _regionRepository.GetAllAsync(query);
 
             // Map model to DTOs
             var regionDtos = _mapper.Map<List<RegionDTO>>(regions);

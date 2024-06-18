@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.CustomActionFilters;
 using NZWalks.API.DTOs;
+using NZWalks.API.Helpers;
 using NZWalks.API.Services;
 
 namespace NZWalks.API.Controllers
@@ -17,10 +18,10 @@ namespace NZWalks.API.Controllers
             _regionService = regionService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetRegionsAsync()
+        public async Task<IActionResult> GetRegionsAsync([FromQuery] QueryObjects query)
         {
             // Get Data from DB
-            var regions = await _regionService.GetAllRegionsAsync();
+            var regions = await _regionService.GetAllRegionsAsync(query);
             
             return Ok(regions);
         }
