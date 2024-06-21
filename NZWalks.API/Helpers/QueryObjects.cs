@@ -2,5 +2,5 @@
 
 public class QueryObjects
 {
-    public string? Name { get; set; } = null;
+    public string? searchString { get; set; } = null;
 }

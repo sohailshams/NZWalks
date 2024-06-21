@@ -17,9 +17,9 @@ namespace NZWalks.API.Repositories
         public async Task<List<Region>> GetAllAsync(QueryObjects query)
         {
             var regions = dbContext.Regions.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(query.Name))
+            if (!string.IsNullOrWhiteSpace(query.searchString))
             {
-                regions = regions.Where(r => r.Name.Contains(query.Name));
+                regions = regions.Where(r => r.Name.Contains(query.searchString) || r.Code.Contains(query.searchString));
             }
             return await regions.ToListAsync();
         }
