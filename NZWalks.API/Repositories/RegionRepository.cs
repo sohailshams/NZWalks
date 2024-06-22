@@ -21,6 +21,14 @@ namespace NZWalks.API.Repositories
             {
                 regions = regions.Where(r => r.Name.Contains(query.searchString) || r.Code.Contains(query.searchString));
             }
+
+            if (!string.IsNullOrWhiteSpace(query.sortBy))
+            {
+                if (query.sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase)) 
+                {
+                    regions = query.isDecsending ? regions.OrderByDescending(r => r.Name) : regions.OrderBy(r => r.Name);
+                }
+            }
             return await regions.ToListAsync();
         }
 
