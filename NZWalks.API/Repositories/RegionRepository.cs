@@ -26,7 +26,11 @@ namespace NZWalks.API.Repositories
             {
                 if (query.sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase)) 
                 {
-                    regions = query.isDecsending ? regions.OrderByDescending(r => r.Name) : regions.OrderBy(r => r.Name);
+                    regions = query.isAscending ? regions.OrderBy(r => r.Name) : regions.OrderByDescending(r => r.Name);
+                }
+                if (query.sortBy.Equals("Code", StringComparison.OrdinalIgnoreCase)) 
+                {
+                    regions = query.isAscending ? regions.OrderBy(r => r.Code) : regions.OrderByDescending(r => r.Code);
                 }
             }
             return await regions.ToListAsync();
